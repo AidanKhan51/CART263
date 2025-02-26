@@ -13,6 +13,7 @@ class DrawingBoard {
 
     this.canvas.addEventListener("mousemove", function (e) {
       self.overCanvas(e);
+      
     });
   }
 
@@ -35,6 +36,10 @@ class DrawingBoard {
     }
     if(this.drawingBoardId ==="partD"){
       console.log("in D")
+      for (let i = 0; i < this.objectsOnCanvas.length; i++) {
+        this.objectsOnCanvas[i].updatePositionRect(this.mouseOffsetX, this.mouseOffsetY);
+        this.objectsOnCanvas[i].display();S
+      }
    }
   }
 
@@ -58,6 +63,10 @@ class DrawingBoard {
     }
     if(this.drawingBoardId ==="partD"){
       console.log("in D")
+      for (let i = 0; i < this.objectsOnCanvas.length; i++) {
+        this.objectsOnCanvas[i].changeColor('white');
+        this.objectsOnCanvas[i].display();
+      }
       }
   }
   /* method to add obj to canvas */

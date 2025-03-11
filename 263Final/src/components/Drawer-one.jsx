@@ -5,18 +5,26 @@ Command: npx gltfjsx@6.5.3 public/models/drawer-one.glb
 
 import React from 'react'
 import { useGraph } from '@react-three/fiber'
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, Html } from '@react-three/drei'
 import { SkeletonUtils } from 'three-stdlib'
 
 const DrawerOne = (props) => {
   const { scene } = useGLTF('./models/drawer-one.glb')
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes, materials } = useGraph(clone)
-  return (
-    <group {...props} dispose={null}
-      onClick={() => document.createElement()}
+  const [showText, setShowText] = React.useState(false);
+
+  return <>
+    {showText && <Html>
+      <div>I am Drawer One!</div>
+    </Html>}
+    <group
+      {...props}
+      dispose={null}
+      onClick={() => setShowText(!showText)}
       onPointerEnter={() => console.log('enter')}
-      onPointerLeave={() => console.log('leave')}>
+      onPointerLeave={() => console.log('leave')}
+    >
       <group position={[0.596, 3.325, 1.225]} rotation={[0, 0, -Math.PI / 2]} scale={0.733}>
         <group position={[0, 1.066, 0]} scale={0.679}>
           <primitive object={nodes.Bone_1} />
@@ -29,7 +37,7 @@ const DrawerOne = (props) => {
         <mesh geometry={nodes.Cube003.geometry} material={nodes.Cube003.material} position={[-0.02, 1.017, -0.549]} rotation={[0, 0, Math.PI / 2]} scale={[0.572, 0.074, 0.043]} />
       </group>
     </group>
-  )
+  </>;
 }
 export default DrawerOne
 

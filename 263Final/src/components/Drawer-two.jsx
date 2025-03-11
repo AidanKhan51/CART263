@@ -5,16 +5,23 @@ Command: npx gltfjsx@6.5.3 public/models/drawer-two.glb
 
 import React from 'react'
 import { useGraph } from '@react-three/fiber'
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, Html } from '@react-three/drei'
 import { SkeletonUtils } from 'three-stdlib'
 
 const DrawerTwo = (props) => {
   const { scene } = useGLTF('./models/drawer-two.glb')
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes, materials } = useGraph(clone)
-  return (
-    <group {...props} dispose={null}
-      onClick={() => console.log("Drawer Two")}
+  const [showText, setShowText] = React.useState(false);
+
+  return <>
+    {showText && <Html>
+      <div>I am Drawer Two!</div>
+    </Html>}
+    <group
+      {...props}
+      dispose={null}
+      onClick={() => setShowText(!showText)}
       onPointerEnter={() => console.log('enter')}
       onPointerLeave={() => console.log('leave')}
     >
@@ -30,7 +37,7 @@ const DrawerTwo = (props) => {
         <mesh geometry={nodes.Cube006.geometry} material={nodes.Cube006.material} position={[-0.02, 1.017, -0.549]} rotation={[0, 0, Math.PI / 2]} scale={[0.572, 0.074, 0.043]} />
       </group>
     </group>
-  )
+  </>;
 }
 
 export default DrawerTwo
